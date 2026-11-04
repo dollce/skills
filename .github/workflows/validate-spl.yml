@@ -1,0 +1,41 @@
+name: Validate SPL skill
+
+on:
+  push:
+    branches: [master]
+    paths: ["spl/**", "skills.sh.json", ".github/workflows/validate-spl.yml"]
+  pull_request:
+    paths: ["spl/**", "skills.sh.json", ".github/workflows/validate-spl.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install validation dependency
+        run: python -m pip install -r spl/requirements-dev.txt
+      - name: Validate skill and portable archives
+        run: python spl/scripts/check_release.py
+      - name: Discover skill with the supported CLI
+        env:
+          DISABLE_TELEMETRY: "1"
+        run: |
+          python - <<'PY'
+          import subprocess
+          result = subprocess.run(
+              ["npx", "--yes", "skills@1.7.6", "add", ".", "--list"],
+              text=True, capture_output=True, check=True,
+          )
+          print(result.stdout)
+          assert "splunk-spl-writer" in result.stdout, result.stderr
+          PY

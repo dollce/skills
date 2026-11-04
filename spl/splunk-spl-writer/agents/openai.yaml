@@ -1,0 +1,6 @@
+interface:
+  display_name: "Splunk SPL Writer"
+  short_description: "실제 로그 구조에 맞춘 최적화된 Splunk SPL 생성·제공"
+
+policy:
+  allow_implicit_invocation: true
