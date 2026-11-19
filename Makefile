@@ -7,7 +7,7 @@ check:
 	$(PYTHON) -m unittest discover -s tests
 
 check-cli:
-	$(PYTHON) scripts/check_cli.py
+	$(PYTHON) -m scripts.check_cli
 
 dev-link:
 	$(PYTHON) scripts/dev_links.py link
