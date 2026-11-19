@@ -1,2 +1,5 @@
 .venv/
 .DS_Store
+/.agents/skills/
+/.agents/.dollce-dev-links/
+__pycache__/

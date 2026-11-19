@@ -12,7 +12,10 @@ import tempfile
 from urllib.parse import unquote, urlsplit
 import zipfile
 
-import build_release
+if __package__:
+    from . import build_release
+else:
+    import build_release  # Also run directly from the standalone handoff archive.
 
 try:
     import yaml
