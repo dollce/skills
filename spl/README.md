@@ -83,6 +83,8 @@ spl/
 
 다른 컴퓨터에서는 저장소를 복제한 뒤 `spl/MAINTAINER.md`부터 읽습니다.
 
+복제한 저장소에서 앱으로 개발본을 테스트할 때는 루트에서 `make dev-link`로 연결하고, 테스트를 마치면 `make dev-unlink`로 정리합니다. [배포 전 로컬 테스트](https://github.com/dollce/skills#배포-전-로컬-테스트)
+
 ```sh
 git clone https://github.com/dollce/skills.git
 cd skills
@@ -93,7 +95,7 @@ python3 spl/scripts/check_release.py
 npx skills add . --list
 ```
 
-실제 Splunk를 실행하지 않고 스킬 메타데이터·참조 경로·패키징·CLI 검색을 확인합니다. CI에서도 이 검증을 수행하며 CLI 검증 버전은 `skills@1.7.6`으로 고정합니다. CLI 버전을 올릴 때는 검색과 설치·업데이트·삭제 동작을 함께 확인합니다.
+실제 Splunk를 실행하지 않고 스킬 메타데이터·참조 경로·패키징·CLI 검색을 확인합니다. CI에서는 `make check`와 `make check-cli`를 실행해 개발 링크와 임시 프로젝트 설치까지 확인합니다. CLI 검증 버전은 `skills@1.7.6`으로 고정합니다. CLI 버전을 올릴 때는 검색과 설치·업데이트·삭제 동작을 함께 확인합니다.
 
 ZIP이 필요하면 저장소 루트에서 실행합니다.
 
